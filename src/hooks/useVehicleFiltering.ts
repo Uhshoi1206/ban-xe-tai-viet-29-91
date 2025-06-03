@@ -42,7 +42,7 @@ export const useVehicleFiltering = (vehicles: Truck[], selectedType: VehicleType
   // Áp dụng các bộ lọc khác
   filteredVehicles = filteredVehicles.filter(vehicle => {
     // Lọc theo thương hiệu
-    if (filters.brand && vehicle.brand !== filters.brand) {
+    if (filters.brand && !vehicle.brand.includes(filters.brand)) {
       return false;
     }
     
