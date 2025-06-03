@@ -229,7 +229,7 @@ export interface Truck {
   id: string;
   name: string;
   slug: string;
-  brand: string;
+  brand: string[];
   price: number;
   priceText: string;
   weightText: string;
