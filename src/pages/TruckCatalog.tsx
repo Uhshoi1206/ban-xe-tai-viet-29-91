@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Layout from '@/components/Layout';
@@ -81,9 +80,13 @@ const TruckCatalog: React.FC = () => {
       result = result.filter(truck => truck.type === filters.vehicleType);
     }
     
-    // Lọc theo thương hiệu
+    // Lọc theo thương hiệu - FIX: Handle brand as array
     if (filters.brand) {
-      result = result.filter(truck => truck.brand === filters.brand);
+      result = result.filter(truck => {
+        // Ensure truck.brand is always an array
+        const brandArray = Array.isArray(truck.brand) ? truck.brand : [truck.brand];
+        return brandArray.includes(filters.brand);
+      });
     }
     
     // Lọc theo giá
@@ -102,15 +105,20 @@ const TruckCatalog: React.FC = () => {
       result = result.filter(truck => truck.weight <= (filters.maxWeight || Infinity));
     }
     
-    // Lọc theo từ khóa tìm kiếm
+    // Lọc theo từ khóa tìm kiếm - FIX: Handle brand as array
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
       result = result.filter(
-        truck => 
-          truck.name.toLowerCase().includes(searchLower) || 
-          truck.brand.toLowerCase().includes(searchLower) ||
-          truck.description?.toLowerCase().includes(searchLower) ||
-          truck.weightText.toLowerCase().includes(searchLower)
+        truck => {
+          // Ensure truck.brand is always an array
+          const brandArray = Array.isArray(truck.brand) ? truck.brand : [truck.brand];
+          const brandMatch = brandArray.some(brand => brand.toLowerCase().includes(searchLower));
+          
+          return truck.name.toLowerCase().includes(searchLower) || 
+                 brandMatch ||
+                 truck.description?.toLowerCase().includes(searchLower) ||
+                 truck.weightText.toLowerCase().includes(searchLower);
+        }
       );
     }
     

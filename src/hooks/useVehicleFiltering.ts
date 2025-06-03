@@ -41,9 +41,12 @@ export const useVehicleFiltering = (vehicles: Truck[], selectedType: VehicleType
   
   // Áp dụng các bộ lọc khác
   filteredVehicles = filteredVehicles.filter(vehicle => {
-    // Lọc theo thương hiệu
-    if (filters.brand && !vehicle.brand.includes(filters.brand)) {
-      return false;
+    // Lọc theo thương hiệu - FIX: Handle brand as array consistently
+    if (filters.brand) {
+      const brandArray = Array.isArray(vehicle.brand) ? vehicle.brand : [vehicle.brand];
+      if (!brandArray.includes(filters.brand)) {
+        return false;
+      }
     }
     
     // Lọc theo giá
@@ -68,11 +71,12 @@ export const useVehicleFiltering = (vehicles: Truck[], selectedType: VehicleType
       }
     }
     
-    // Lọc theo từ khóa tìm kiếm
+    // Lọc theo từ khóa tìm kiếm - FIX: Handle brand as array consistently
     if (filters.search && filters.search.trim() !== "") {
       const searchLower = filters.search.toLowerCase();
       const nameMatch = vehicle.name.toLowerCase().includes(searchLower);
-      const brandMatch = vehicle.brand.toLowerCase().includes(searchLower);
+      const brandArray = Array.isArray(vehicle.brand) ? vehicle.brand : [vehicle.brand];
+      const brandMatch = brandArray.some(brand => brand.toLowerCase().includes(searchLower));
       const descriptionMatch = vehicle.description?.toLowerCase().includes(searchLower);
       
       if (!nameMatch && !brandMatch && !descriptionMatch) {

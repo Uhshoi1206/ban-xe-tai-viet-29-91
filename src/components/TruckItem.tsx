@@ -83,7 +83,10 @@ const TruckItem = ({ truck }: TruckItemProps) => {
       
       <div className="p-4 flex-grow flex flex-col">
         <div>
-          <span className="text-gray-500 text-sm">{truck.brand.join(' / ')}</span>
+          {/* FIX: Handle brand as array consistently */}
+          <span className="text-gray-500 text-sm">
+            {Array.isArray(truck.brand) ? truck.brand.join(' / ') : truck.brand}
+          </span>
           <Link to={`/${vehicleUrlPrefix}/${truck.slug}`} className="group" onClick={() => window.scrollTo(0, 0)}>
             <h3 className="font-bold text-lg mb-2 hover:text-red-600 transition-colors line-clamp-2">
               {truck.name}
