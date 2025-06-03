@@ -303,7 +303,7 @@ const CompareTable: React.FC<CompareTableProps> = ({ trucks }) => {
   const getPropertyValue = (truck: Truck, propId: string, isPrice?: boolean, unit?: string, isArray?: boolean) => {
     if (!truck) return '-';
 
-    if (propId === 'brand') return truck.brand || '-';
+    if (propId === 'brand') return Array.isArray(truck.brand) ? truck.brand.join(' / ') : truck.brand || '-';
     if (propId === 'weightText') return truck.weightText || '-';
     if (propId === 'dimensions') return truck.dimensions || `${truck.length} x ${truck.width} x ${truck.height} m`;
     if (propId === 'price' && isPrice) return truck.priceText || formatPrice(truck.price) || '-';
