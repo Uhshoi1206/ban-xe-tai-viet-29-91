@@ -884,7 +884,7 @@ export const trucks: Truck[] = [
     id: "cau203",
     name: 'Hino FC9JLSW Gắn Cẩu Soosan SCS746L',
     slug: 'hino-fc9jlsw-gan-cau-soosan-scs746l',
-    brand: 'Hino', // Thương hiệu xe nền
+    brand: ['Hino', 'Soosan'], // Thương hiệu xe nền
     price: 1350000000, // Giá xe + cẩu
     priceText: '1.350.000.000 đ',
     weightText: '6 Tấn', // Tải trọng chuyên chở của xe nền sau khi gắn cẩu
