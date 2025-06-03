@@ -11,19 +11,20 @@ interface BrandCategoriesProps {
 const BrandCategories = ({ trucks }: BrandCategoriesProps) => {
   // Tạo danh sách thương hiệu duy nhất từ sản phẩm có sẵn
   const getUniqueBrands = () => {
-    const brandSet = new Set<string>();
-    trucks.forEach(truck => {
-      if (truck.brand && truck.brand.trim()) {
-        brandSet.add(truck.brand.trim());
+  const brandSet = new Set<string>();
+  trucks.forEach(truck => {
+    truck.brand.forEach(b => { // Lặp qua mảng brand của mỗi xe
+      if (b && b.trim()) {
+        brandSet.add(b.trim());
       }
     });
-    
-    // Chuyển đổi Set thành mảng và sắp xếp theo thứ tự alphabet
-    return Array.from(brandSet).sort().map((brand, index) => ({
-      id: index + 1,
-      name: brand
-    }));
-  };
+  });
+  // Sắp xếp và map lại như cũ
+  return Array.from(brandSet).sort().map((brandName, index) => ({
+    id: index + 1, // ID có thể cần được quản lý tốt hơn nếu có yêu cầu cụ thể
+    name: brandName
+  }));
+};
 
   const brands = getUniqueBrands();
 
