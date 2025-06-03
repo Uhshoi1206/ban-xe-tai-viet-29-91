@@ -258,7 +258,7 @@ const TruckDetail = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 p-3 rounded-md">
                   <div className="text-gray-600 text-sm">Thương hiệu</div>
-                  <div className="font-medium">{truck.brand}</div>
+                  <div className="font-medium">{truck.brand.join(' / ')}</div>
                 </div>
                 <div className="bg-gray-50 p-3 rounded-md">
                   <div className="text-gray-600 text-sm">Tải trọng</div>
