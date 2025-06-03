@@ -1,3 +1,4 @@
+
 export type VehicleType = 'xe-tai' | 'xe-cau' | 'mooc' | 'dau-keo';
 
 export interface TruckBrand {
@@ -229,7 +230,7 @@ export interface Truck {
   id: string;
   name: string;
   slug: string;
-  brand: string[];
+  brand: string | string[]; // Support both string and string[] for backward compatibility
   price: number;
   priceText: string;
   weightText: string;

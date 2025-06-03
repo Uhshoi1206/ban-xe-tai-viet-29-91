@@ -34,12 +34,15 @@ const SearchPage: React.FC = () => {
     const performSearch = () => {
       if (!query) return;
 
-      // Tìm kiếm xe
-      const trucksResult = trucks.filter(truck => 
-        truck.name.toLowerCase().includes(query.toLowerCase()) || 
-        truck.brand.toLowerCase().includes(query.toLowerCase()) || 
-        truck.description.toLowerCase().includes(query.toLowerCase())
-      );
+      // Tìm kiếm xe - Handle brand as both string and array
+      const trucksResult = trucks.filter(truck => {
+        const brandArray = Array.isArray(truck.brand) ? truck.brand : [truck.brand];
+        const brandMatch = brandArray.some(brand => brand.toLowerCase().includes(query.toLowerCase()));
+        
+        return truck.name.toLowerCase().includes(query.toLowerCase()) || 
+               brandMatch || 
+               truck.description?.toLowerCase().includes(query.toLowerCase());
+      });
       setFilteredTrucks(trucksResult);
 
       // Tìm kiếm bài viết
